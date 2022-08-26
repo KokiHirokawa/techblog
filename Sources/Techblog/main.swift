@@ -14,7 +14,7 @@ struct Techblog: Website {
     }
 
     // Update these properties to configure your website:
-    var url = URL(string: "https://your-website-url.com")!
+    var url = URL(string: "https://kokiHirokawa.github.io")!
     var name = "Techblog"
     var description = "A description of Techblog"
     var language: Language { .english }
@@ -22,4 +22,12 @@ struct Techblog: Website {
 }
 
 // This will generate your website using the built-in Foundation theme:
-try Techblog().publish(withTheme: .foundation)
+try Techblog()
+    .publish(using: [
+        .addMarkdownFiles(),
+        .generateHTML(withTheme: .foundation),
+        .sortItems(by: \.date, order: .descending),
+        .generateRSSFeed(including: [.posts]),
+        .generateSiteMap(),
+        .deploy(using: .gitHub("KokiHirokawa/KokiHirokawa.github.io", useSSH: false))
+    ])
