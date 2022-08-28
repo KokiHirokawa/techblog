@@ -29,5 +29,5 @@ try Techblog()
         .sortItems(by: \.date, order: .descending),
         .generateRSSFeed(including: [.posts]),
         .generateSiteMap(),
-        .deploy(using: .gitHub("KokiHirokawa/KokiHirokawa.github.io", useSSH: false))
+        .deploy(using: .gitHub("KokiHirokawa/KokiHirokawa.github.io", branch: "main", useSSH: false))
     ])
