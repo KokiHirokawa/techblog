@@ -1,0 +1,24 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-github-pages:
+    runs-on: ubuntu-latest
+    container: "swift:5.6"
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup
+      run: make setup
+    - name: Generate
+      run: make generate
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        personal_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        external_repository: KokiHirokawa/KokiHirokawa.github.io
+        publish_branch: main
+        publish_dir: ./Output
